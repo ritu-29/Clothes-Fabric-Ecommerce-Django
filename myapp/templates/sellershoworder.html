@@ -1,0 +1,119 @@
+{%extends 'base.html'%}
+{%block main%}
+{%load static%}
+{%include 'messages.html'%}
+<style>
+    .custom-order-table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.custom-order-table th {
+    background-color: #343a40;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.85rem;
+    text-align: center;
+    padding: 12px;
+}
+
+.custom-order-table td {
+    padding: 15px;
+    vertical-align: middle;
+    border: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.custom-order-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.section-title h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.section-title p {
+    font-size: 1.7rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.table-responsive {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.fw-bold {
+    font-weight: bold;
+}
+
+</style>
+<main>
+<div class="banner margin_bottom_150">
+	<div class="container">
+		<h1 class="title-font title-banner banner-product-detail">My Orders</h1>
+		<ul class="breadcrumb des-font">
+			<li><a href=" {% static 'Home1.html' %} ">Home</a></li>
+			<li class="active">My Orders</li>
+		</ul>
+	</div>
+</div>
+
+<br><br><br>
+<section class="cart-section py-5">
+    <div class="container">
+        <!-- Section Title -->
+        <div class="section-title text-center mb-4">
+            <h2 class="fw-bold">Seller Order Details</h2>
+            <p class="text-muted">View and manage order details easily.</p>
+        </div>
+
+        <!-- Order Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover custom-order-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in sellerorderdetails %}
+                        <tr>
+                            <!-- Order ID -->
+                            <td class="align-middle text-center">
+                                <span class="fw-bold">{{ order.id }}</span>
+                            </td>
+                            <!-- Product Name -->
+                            <td class="align-middle">
+                                <h6 class="m-0">{{ order.product.name }}</h6>
+                            </td>
+                            <!-- Quantity -->
+                            <td class="align-middle text-center">
+                                {{ order.Quantity }}
+                            </td>
+                            <!-- Product Price -->
+                            <td class="align-middle text-center">
+                                ₹{{ order.product.price }}
+                            </td>
+                            <!-- Total Price -->
+                            <td class="align-middle text-center">
+                                ₹{{ order.Price }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<br><br>
+
+</main>
+{%endblock%}

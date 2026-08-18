@@ -1,0 +1,134 @@
+{%extends 'base.html'%}
+{%block main%}
+{%load static%}
+{%include 'messages.html'%}
+<style>
+    .custom-cart-table {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.custom-cart-table th {
+    background-color: #f8f9fa;
+    text-transform: uppercase;
+    font-size: 1.85rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.custom-cart-table th, .custom-cart-table td {
+    padding: 15px;
+    vertical-align: middle;
+    border: 1px solid #dee2e6;
+}
+
+.custom-cart-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.custom-cart-table td img {
+    border-radius: 5px;
+}
+
+.btn-danger {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.section-title h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.section-title p {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+</style>
+<main>
+<div class="banner margin_bottom_150">
+	<div class="container">
+		<h1 class="title-font title-banner banner-product-detail">My Product</h1>
+		<ul class="breadcrumb des-font">
+			<li><a href=" {% static 'Home1.html' %} ">Home</a></li>
+			<li class="active">My Product</li>
+		</ul>
+	</div>
+</div>
+
+
+
+<br><br><br>
+<section class="cart-section py-5">
+    <div class="container">
+        <!-- Section Title -->
+        <div class="section-title text-center mb-4">
+            <h2 class="fw-bold">Product Details</h2>
+            <p class="text-muted">Manage your products and update the list as needed.</p>
+        </div>
+
+        <!-- Cart Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered custom-cart-table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in productdetails %}
+                        <tr>
+                            <!-- Product Image -->
+                            <td class="align-middle text-center">
+                                <a href="#">
+                                    <img class="img-fluid rounded" src="{{ i.image1.url }}" alt="Product Image" style="max-width: 80px; height: auto;">
+                                </a>
+                            </td>
+                            <!-- Product Name -->
+                            <td class="align-middle">
+                                <h6 class="m-0">{{ i.name }}</h6>
+                            </td>
+                            <!-- Product Description -->
+                            <td class="align-middle">
+                                <p class="m-0 text-muted">{{ i.desc }}</p>
+                            </td>
+                            <!-- Product Price -->
+                            <td class="align-middle text-center">
+                                ₹{{ i.price }}
+                            </td>
+                            <!-- Remove Product -->
+                            <td class="align-middle text-center">
+                                <a href="/edit_product/{{ i.id }}" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-trash"></i> Edit Product
+                                </a>
+                            </td>
+                            <td class="align-middle text-center">
+                                <a href="/deleteProduct/{{ i.id }}" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<br><br>
+</main>
+{%endblock%}

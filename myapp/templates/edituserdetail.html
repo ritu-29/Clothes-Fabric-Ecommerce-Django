@@ -1,0 +1,184 @@
+{%extends 'base.html'%}
+{%block main%}
+{%load static%}
+{%include 'messages.html'%}
+
+<style>
+    /* Prefixed with 'custom-form-' to avoid clashes */
+.custom-form {
+    background-color: #ffffff;
+    padding: 20px 40px;
+    margin: 0px 0px 70px 650px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 100%;
+}
+
+.custom-form-input {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.custom-form-input label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    color: #333333;
+}
+
+.custom-form-input input[type="text"],
+.custom-form-input input[type="date"],
+.custom-form-input textarea,
+.custom-form-input select,
+.custom-form-input input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.custom-form-input input[type="text"]:focus,
+.custom-form-input input[type="date"]:focus,
+.custom-form-input textarea:focus,
+.custom-form-input select:focus,
+.custom-form-input input[type="file"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+textarea.custom-form-control {
+    resize: none;
+}
+
+button.custom-form-submit {
+    width: 100%;
+    padding: 12px 0;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button.custom-form-submit:hover {
+    background-color: #0056b3;
+    box-shadow: 0 8px 16px rgba(0, 91, 187, 0.3);
+}
+
+.custom-form-input input[type="file"] {
+    padding: 5px;
+    border: 1px dashed #aaa;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.custom-form-input input[type="file"]::file-selector-button {
+    border: none;
+    background: #007bff;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-form-input input[type="file"]::file-selector-button:hover {
+    background-color: #0056b3;
+}
+
+.custom-form-input input[type="file"]:focus {
+    border-color: #007bff;
+}
+
+.custom-form-input textarea:focus,
+.custom-form-input input[type="file"]:focus,
+.custom-form-input input[type="text"]:focus,
+.custom-form-input select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.custom-form-check {
+    display: flex;
+    align-items: center;
+}
+
+.custom-form-check-label {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.custom-form-check-input {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+}
+
+h1.custom-fancy-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 3.5rem;
+    font-style: italic;
+    font-weight: 400;
+    color: #2c3e50;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease;
+}
+
+h1.custom-fancy-title:hover {
+    transform: scale(1.05);
+}
+
+</style>
+
+<main>
+<div class="banner margin_bottom_150">
+	<div class="container">
+		<h1 class="title-font title-banner">User Profile</h1>
+		<ul class="breadcrumb des-font">
+			<li><a href=" {% static 'Home1.html' %} ">Home</a></li>
+			<li class="active">User Profile</li>
+		</ul>
+	</div>
+</div>
+
+<form class="custom-form" action="/update" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h4 align="center">User Detail</h4><br>
+
+    <div class="custom-form-input">
+        <label for="address">Address</label>
+        <textarea class="custom-form-control" id="address" name="address1" rows="3">{{data.address}}</textarea>
+    </div>
+
+    <div class="custom-form-input">
+        <label>Profile Image:</label>
+        <img src="/media/{{data.userprofile_image}}" width="100px">
+        <input type="file" name="profile_image1" class="form-control-file" accept="image/*">
+    </div>
+
+    <div class="custom-form-input">
+        <label for="date_of_birth">Date of Birth</label>
+        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth1" value="{{data.date_of_birth | date:'Y-m-d'}}">
+    </div>
+
+    <div class="custom-form-input">
+        <label for="profession">Profession</label>
+        <input type="text" class="form-control" id="profession" name="profession1" value="{{data.profession}}">
+    </div>
+
+    <div class="custom-form-input">
+        <label for="bio">Bio</label>
+         <input type="text" class="form-control" name="bio1" id="bio" value="{{data.bio}}">
+      </div>
+    </div>
+    <button type="submit" class="custom-form-submit">Submit</button>
+</form>
+</main>
+        <!-- login area end -->
+     {%endblock%}

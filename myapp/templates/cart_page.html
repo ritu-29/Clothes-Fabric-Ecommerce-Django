@@ -1,0 +1,176 @@
+{%extends 'base.html'%}
+{%block main%}
+{%load static%}
+{%include 'messages.html'%}
+<style>
+    .product-img img {
+    width: 100px; /* Set a consistent width */
+    height: 100px; /* Set a consistent height */
+    object-fit: cover; /* Ensures images fit the dimensions without distortion */
+    border-radius: 8px; /* Optional: Adds rounded corners */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+    border: 1px solid #ddd; /* Optional: Adds a light border */
+}
+
+</style>
+<main>
+<div class="banner margin_bottom_150">
+	<div class="container">
+		<h1 class="title-font title-banner">My Cart</h1>
+		<ul class="breadcrumb des-font">
+			<li><a href=" {% static 'Home1.html' %} ">Home</a></li>
+			<li class="active">Cart</li>
+		</ul>
+	</div>
+</div>
+
+<!--  -->
+    {%if cartdetails%}
+
+<div class="container">
+<div class="table-responsive">
+    <table class="table cart-table">
+        <thead>
+            <tr class="number-font">
+                <th class="product-thumbnail uppercase">Imane</th>
+                <th class="product-name uppercase">Name</th>
+                <th class="product-price uppercase">Price</th>
+                <th class="product-quantity uppercase">Quantity</th>
+                <th class="product-subtotal uppercase">Total</th>
+                <th class="product-remove uppercase">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in cartdetails %}
+                <tr class="item_cart">
+                    <td class=" product-name">
+                        <div class="product-img">
+                            <img src="{{item.product.image1.url}}" class="img-responsive" alt="">
+                        </div>
+                    </td>
+                    <td class="product-desc">
+                        <div class="product-info">
+                            <a href="#" class="title-font link-default">{{ item.product.name }}</a>
+                            <p class="number-font margin_top_20">Desc: <span class="menu-child-font">{{ item.product.desc }}</span></p>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="price number-font">{{item.product.price}}</p>
+                    </td>
+                    <td class="btn-fuction">
+                        <div class="product-quantity">
+                                        <div class="quantity-box">
+                                            <a href="/decreaseitem/{{item.id}}" style="font-size:25px;"> <i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                                            {{item.Quantity}}
+                                            <a href="/increaseitem/{{item.id}}" style="font-size:25px;"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                    </td>
+                    <td class="total-price">
+                        <p >₹{{ item.total_price }}</p>
+                    </td>
+                    <td class="product-remove">
+                        <a href="/removefromcart/{{item.id}}" class="btn-del link-default"><i class="ti-close"></i></a>
+                    </td>
+                </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+<!--  -->
+<div class="table-cart-bottom margin_top_20 margin_bottom_50">
+    <div class="row">
+        <div class="col-md-5 col-sm-6 col-xs-12">
+            <div class="cart-text">
+                <div class="cart-element flex">
+                    <p class="des-font">Total:</p>
+                    <p>₹{{ total_price2 }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  -->
+         <!-- Online Payment -->
+            <form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="payment_mode" class="form-label">Select Payment Mode</label>
+        <select id="payment_mode" name="payment_mode" class="form-select" required>
+            <option value="" disabled selected>Select</option>
+            <option value="online">Online Payment</option>
+            <option value="offline">Offline Payment</option>
+        </select>
+    </div>
+
+    <!-- Fields specific to offline payment -->
+    <div id="offline-fields" style="display: none;">
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea id="address" name="address" class="form-control" rows="3" placeholder="Enter your address"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="reference" class="form-label">Reference</label>
+            <input type="text" id="reference" name="reference" class="form-control" placeholder="Enter reference details">
+        </div>
+        <div class="mb-3">
+            <label for="remark" class="form-label">Remarks (Optional)</label>
+            <textarea id="remark" name="remark" class="form-control" rows="2" placeholder="Any additional remarks"></textarea>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+</form>
+
+<script>
+    document.getElementById('payment_mode').addEventListener('change', function () {
+        const offlineFields = document.getElementById('offline-fields');
+        if (this.value === 'offline') {
+            offlineFields.style.display = 'block';
+        } else {
+            offlineFields.style.display = 'none';
+        }
+    });
+</script>
+
+        </div>
+
+        {% else %}
+        <h3 align="center">No items available in the cart right now.</h3>
+        {% endif %}
+        <br><br>
+        <!-- Razorpay Payment Script -->
+        {% if razorpay_payment %}
+        <form method="POST" action="{% url 'payment_status' %}">
+            {% csrf_token %}
+            <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="rzp_test_VQhEfe2NCXbbwI"
+                data-amount="{{ razorpay_payment.amount }}"
+                data-currency="INR"
+                data-order_id="{{ razorpay_payment.order_id }}"
+                data-buttontext="Pay with Razorpay"
+                data-name="Arc"
+                data-description="A Wild Sheep Chase is the third novel by Japanese author Haruki Murakami"
+                data-image="https://example.com/your_logo.jpg"
+                data-prefill.name="{{ razorpay_payment.name }}"
+                data-prefill.email="gaurav.kumar@example.com"
+                data-theme.color="#F37254"
+            ></script>
+            <input type="hidden" custom="Hidden Element" name="hidden" />
+        </form>
+        {% endif %}
+
+	<div class="newsletter-home3 space_bot_150 space_top_130 BG margin_bottom_120">
+		<h1 class="title-font capital title-newsletter text-center">Get Our Latest Update In Your Email</h1>
+		<p class="des-font des-newsletter space_bot_60 text-center">Subscribe now to get 15% off on any product</p>
+		<form class="form-group des-font flex" method="post" target="_blank">
+					<input type="email" name="EMAIL" class="form-control" placeholder="Your email address...">
+					<button type="submit" class="menu-font uppercase">subscribe</button>
+		</form>
+	</div>
+<!--  -->
+
+</main>
+{%endblock%}

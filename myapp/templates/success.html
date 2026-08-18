@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{%block main%}
+{%load static%}
+{%include 'messages.html'%}
+<main>
+<div class="banner margin_bottom_150">
+	<div class="container">
+		<h1 class="title-font title-banner">Payment Information</h1>
+		<ul class="breadcrumb des-font">
+			<li><a href=" {% static 'Home1.html' %} ">Home</a></li>
+			<li class="active">Payment Information</li>
+		</ul>
+	</div>
+</div>
+
+<body>
+<h1 style="text-align: center; margin: 200px; font-size: 50; color: rgb(10, 10, 10)">Payment Successfull</h1>
+
+</body>
+</main>
+{%endblock%}

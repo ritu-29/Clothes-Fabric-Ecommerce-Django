@@ -1,0 +1,120 @@
+{%extends 'base.html'%}
+{%block main%}
+{%load static%}
+{%include 'messages.html'%}
+
+<main>
+<div class="banner margin_bottom_150">
+	<div class="container">
+		<h1 class="title-font title-banner banner-product-detail">Product Details</h1>
+		<ul class="breadcrumb des-font">
+			<li><a href=" {% static 'Home1.html' %} ">Home</a></li>
+			<li><a href="#">Shop</a></li>
+			<li class="active">Product Details</li>
+		</ul>
+	</div>
+</div>
+<!--  -->
+	<!--  -->
+<div class="container product-detail margin_bottom_150">
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 margin_bottom_50">
+			<div class="row">
+				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+					<div class="slick-product-detail-vertical margin_bottom_20">
+						<div>
+							<img src="{{products.image1.url}}" class="img-responsive full-width" alt="">
+						</div>
+						<div>
+							<img src=" {% static 'asset/img/product-detail-2.jpg' %} " class="img-responsive full-width" alt="">
+						</div>
+						<div>
+							<img src=" {% static 'asset/img/product-detail-3.jpg' %} " class="img-responsive full-width" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!--  -->
+			
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 info-product-detail">
+			<h1 class="title-font title-product margin_bottom_30">{{products.name}}</h1>
+			<p>{{products.desc}}</p>
+			<p>{{products.type}}</p>
+			<p>{{products.measure}}</p>
+			{% if products.status == "Available" %}
+			<p>Stock : Available </p>
+			{%else%}
+			<p>Not Available</p>
+			{%endif%}
+			<p>₹{{products.price}}</p>
+			<div class="flex margin_bottom_50 border-bot space_bot_50 btn-function">
+
+                            <form action="/add_to_cart" method="post" class="signin-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="color-quality-right">
+
+                                <h3 class="product-details__quantity__title">Quantity</h3>
+
+                                <input type="number" id="quantity" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" inputmode="numeric">
+
+								<label>{{ products.measure 	}}</label>
+                            </div>
+                                                <br>
+                            <!-- Hidden input fields for price, quantity, and product id -->
+                            <input type="hidden" name="price" value="{{ products.price }}" />
+                            <input type="hidden" name="pid" value="{{products.id}}" />
+                            <!-- Add other form inputs as needed -->
+
+                            {% if not is_seller %}
+							{% if request.session.log_id %}
+                            {%if profile != None%}
+								{% if products.status == "Available" %}
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+								{% else %}
+								<button type="submit" class="btn btn-warning" disabled>Out of Stock</button>
+								{% endif %}
+                            {% else %}
+                            <a href="/adduser" class="btn btn-danger">Complete Profile</a>
+                            {% endif %}
+								{% else  %}
+								<a href="/login" class="btn btn-danger">Login</a>
+                            {% endif %}
+								{% endif %}
+					</form>
+
+			</div>
+			<!--  -->
+			<div class="info-more">
+				<p class="des-font margin_bottom_30 margin_top_50"><span class="menu-font">Description:</span> {{product.description}}</p>
+				<p class="margin_bottom_30">
+					<span class="menu-font margin_right_10">Categories:</span>
+					<a href="#" class="delay03 margin_right_10">{{products.Cate.cateName}}</a>
+				</p>
+				<p class="margin_bottom_30">
+					<span class="menu-font margin_right_30">Share:</span>
+					<a href="#" class="delay03 margin_right_30"><i class="ti-facebook"></i></a>
+					<a href="#" class="delay03 margin_right_30"><i class="ti-twitter-alt"></i></a>
+					<a href="#" class="delay03 margin_right_30"><i class="ti-pinterest"></i></a>
+					<a href="#" class="delay03 margin_right_30"><i class="ti-linkedin"></i></a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+	<!--  -->
+
+	<!--  -->
+	<div class="newsletter-home3 space_bot_150 space_top_130 BG margin_bottom_120">
+		<h1 class="title-font capital title-newsletter text-center">Get Our Latest Update In Your Email</h1>
+		<p class="des-font des-newsletter space_bot_60 text-center">Subscribe now to get 15% off on any product</p>
+		<form class="form-group des-font flex" method="post" target="_blank">
+					<input type="email" name="EMAIL" class="form-control" placeholder="Your email address...">
+					<button type="submit" class="menu-font uppercase">subscribe</button>
+		</form>
+	</div>
+<!--  -->
+
+</main>
+{%endblock%}

@@ -1,0 +1,341 @@
+{%extends 'base.html'%}
+{%block main%}
+{%load static%}
+{%include 'messages.html'%}
+<style>
+	.img-product img {
+    width: 100%; /* Ensures images span the width of their container */
+    height: 200px; /* Fixed height for consistent dimensions */
+    object-fit: cover; /* Ensures images fill the space without distortion */
+    border-radius: 8px; /* Optional: Adds rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}
+
+.product {
+    margin-bottom: 30px; /* Consistent spacing between products */
+}
+
+.product .img-product {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #eee; /* Optional: Adds a light border around the image */
+}
+
+.product .img-product:hover img {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    transition: all 0.3s ease-in-out; /* Smooth hover transition */
+}
+/* Section Styling */
+.search-section {
+    background-color: #f8f9fa;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.search-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.search-heading {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.search-description {
+    font-size: 16px;
+    color: #666666;
+    margin-bottom: 30px;
+}
+
+/* Form and Input Styles */
+.search-form {
+    display: flex;
+    justify-content: center;
+}
+
+.search-input-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.search-dropdown {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-dropdown:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.search-button i {
+    margin-right: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .search-input-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-button {
+        width: 100%;
+    }
+}
+
+</style>
+<main>
+<div class="container relative">
+  <div class="row">
+
+    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 info-slider-home1 text-left">
+      <div class="slider-nav">
+        <div class="number-font text-left number-slider relative delay1_5">01 <figure class="line absolute"></figure></div>
+        <h1 class="title-font title-slider delay1_5">Rent the Look,<br>Own the Moment</h1>
+        <p class="des-font des-slider delay1_5">Experience premium fashion without the premium price. Perfect fits for weddings, parties, and photoshoots—now just a rental away.</p>
+      </div>
+      <div class="slider-nav">
+        <div class="number-font text-left number-slider relative delay1_5">02 <figure class="line absolute"></figure></div>
+        <h1 class="title-font title-slider delay1_5">Style Meets<br>Affordability</h1>
+        <p class="des-font des-slider delay1_5">From ethnic wear to modern fashion, explore a curated collection of clothes to match every occasion and every vibe.</p>
+      </div>
+      <div class="slider-nav">
+        <div class="number-font text-left number-slider relative delay1_5">03 <figure class="line absolute"></figure></div>
+        <h1 class="title-font title-slider delay1_5">Elegance On<br>Your Terms</h1>
+        <p class="des-font des-slider delay1_5">Why buy when you can rent luxury? Get top designer looks at a fraction of the price—delivered with ease.</p>
+      </div>
+      <div class="slider-nav">
+        <div class="number-font text-left number-slider relative delay1_5">04 <figure class="line absolute"></figure></div>
+        <h1 class="title-font title-slider delay1_5">Celebrate in<br>Style</h1>
+        <p class="des-font des-slider delay1_5">Make every event unforgettable. Choose from traditional, festive, or formal wear—styled for you, rented by you.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 slider-home1 space_bot_70 absolute">
+      <div class="content-slider">
+        <a href="#"><img src=" {% static 'asset/img/22.jpg' %} " class="img-responsive" alt="Designer Lehenga"></a>
+      </div>
+      <div class="content-slider">
+        <a href="#"><img src=" {% static 'asset/img/23.jpg' %} " class="img-responsive" alt="Ethnic Saree for Rent"></a>
+      </div>
+      <div class="content-slider">
+        <a href="#"><img src=" {% static 'asset/img/26.jpg' %} " class="img-responsive" alt="Men's Sherwani Rental"></a>
+      </div>
+      <div class="content-slider">
+        <a href="#"><img src=" {% static 'asset/img/27.jpg' %} " class="img-responsive" alt="Party Dress Rental"></a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+	<section class="search-section">
+    <div class="search-container">
+        <h2 class="search-heading">Explore Fabrics</h2>
+        <p class="search-description">Select a category and find fabrics tailored to your needs.</p>
+        <form action="{% url 'find_products' %}" method="GET" class="search-form">
+            <!-- Input Group -->
+            <div class="search-input-group">
+                <!-- Dropdown -->
+                <select id="category_type" name="category_type" class="search-dropdown" required>
+                    <option value="" disabled selected>Choose Category</option>
+                    {% for category in alldepartments %}
+                    <option value="{{ category.id }}">{{ category.cateName }}</option>
+                    {% endfor %}
+                </select>
+
+                <!-- Search Button -->
+                <button type="submit" class="search-button">
+                    <i class="fa fa-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+
+	<div class="container-fluid section2-home1 margin_bottom_130 margin_top_80">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6 hidden-xs img-section over-hidden space_bot_30">
+				<img src=" {% static 'asset/img/25.png' %} " style="padding:230px 0px 0px 0px;" class="img-responsive right delay03" alt="">
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left space_top_bot_180 content-section">
+				<h1 class="title-font"><a href="#" class="title-hover delay03"> Style is a way to say who you are without having to speak</a></h1>
+			<p class="des-font space_top_bot_70">This summer vitrine brings you joy and excellence in customer  support. It not only looks 
+				great but uses the latest trends in web development to insure fast transactions. This summer 
+				vitrine brings you joy and excellence in customer  support. It not only looks great but it uses 
+				the latest trends in web development to insure fast transactions. This summer vitrine brings 
+				you joy and excellence in customer  support. It not only looks great but it uses the latest 
+				trends in web development to insure fast transactions. This summer vitrine brings you joy 
+				and excellence in customer  support.</p>
+			<a href="#" class="menu-font uppercase learn_more title-hover delay03">learn more </a>
+			</div>
+		</div>
+	</div>
+	<div class="container margin_bottom_130 section-bestseller-home1">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="title-font capital margin_bottom_10 title-bestseller">bestseller</h1>
+				<p class="des-font margin_bottom_50 des-bestseller">I did not even know that there were any better conditions to escape to, but I was more than willing 
+				to take my chances among people fashioned after.</p>
+			<div id="btn-selection" class="title-font margin_bottom_50">
+				<button class="btn all active uppercase btn-default relative margin_right_15">all
+				<figure class="line active_line absolute delay03"></figure>
+				</button>
+				<button class="btn blazers uppercase btn-default relative margin_right_15">blazers
+					<figure class="line absolute delay03"></figure>
+				</button>
+				<button class="btn jackets uppercase btn-default relative margin_right_15">jackets
+					<figure class="line absolute delay03"></figure>
+				</button>
+				<button class="btn trousers uppercase btn-default relative margin_right_15">trousers
+					<figure class="line absolute delay03"></figure>
+				</button>
+				<button class="btn shoes uppercase btn-default relative margin_right_15">shoes
+					<figure class="line absolute delay03"></figure>
+				</button>
+				<button class="btn accessories uppercase btn-default relative margin_right_15">accessories
+					<figure class="line absolute delay03"></figure>
+				</button>
+			</div>
+						<div class="row">
+				{% for i in productdetails%}
+				<div class="product col-lg-2 col-md-4 col-sm-6 col-xs-6 margin_bottom_50">
+					<div class="img-product relative">
+						<a href="#"><img src="{{i.image1.url}}"  class="product-image" alt=""></a>
+						<figure class="absolute uppercase label-new title-font text-center">new</figure>
+						<div class="product-icon text-center absolute">
+							<form method="post" action="https://landing.engotheme.com/cart/add" enctype="multipart/form-data" class="inline-block icon-addcart">
+  							  <input type="hidden" name="id" value="" />
+  							  <button type="submit" name="add" class="enj-add-to-cart-btn btn-default"><i class="ti-bag"></i></button>
+  							</form>
+  							<a href="#" class="icon-heart inline-block"><i class="ti-heart"></i></a>
+  							<a href="#" class="engoj_btn_quickview icon-quickview inline-block" title="quickview">
+      						  <i class="ti-more-alt"></i>
+      						</a>
+						</div>
+					</div>
+					<div class="product-info">
+					<div class="info-product text-center">
+						{%if request.session.log_id%}
+						<h4 class="des-font capital title-product space_top_20"><a href="/shopdetail/{{ i.id }}">{{i.name}}</a></h4>
+						{%else%}
+						<h4 class="des-font capital title-product space_top_20"><a href="/login">{{i.name}}</a></h4>
+						{%endif%}
+						<p class="number-font price-product"><span class="price">{{i.price}}</span></p>
+						<p class="des-font des-product">{{i.desc}}</p>
+					</div>
+					<div class="btn-product-list">
+						<form method="post" action="https://landing.engotheme.com/cart/add" enctype="multipart/form-data" class="inline-block icon-addcart">
+  							  <input type="hidden" name="id" value="" />
+  							  <button type="submit" name="add" class="enj-add-to-cart-btn btn-default des-font uppercase">add to cart</button>
+  						</form>
+  							<a href="#" class="icon-heart inline-block"><i class="ti-heart"></i></a>
+  							<a href="#" class="engoj_btn_quickview icon-quickview inline-block" title="quickview">
+      						  <i class="ti-more-alt"></i>
+      						</a>
+					</div>
+					</div>
+				</div>
+				<!--  -->
+				{%endfor%}
+			</div>
+
+			<div class="col-md-12 text-center discover-link margin_top_70">
+				<a href="#" class="menu-font uppercase relative">discover more<figure class="line"></figure></a>
+			</div>
+			</div>
+		</div>
+	</div>
+	<div class="testimonial">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="title-font capital title-testi">testimonials</h1>
+                <p class="des-font des-testi">
+                    Hear what our customers have to say about their experiences with our platform.
+                    These testimonials showcase the impact we've made in their lives and projects.
+                </p>
+            </div>
+            <div class="col-md-12">
+                <div class="slider-comment">
+                    <div class="content-comment relative">
+                        <div class="number-font absolute stt-comment">#01</div>
+                        <p class="menu-font des-comment space_bot_30">
+                            “The platform made it incredibly easy to find the right resources for my project.
+                            The user-friendly interface and helpful support team were game-changers.”
+                        </p>
+                        <span class="number-font uppercase author-comment">Ravi Sharma </span>
+                    </div>
+                    <!--  -->
+                    <div class="content-comment relative">
+                        <div class="number-font absolute stt-comment">#02</div>
+                        <p class="menu-font des-comment space_bot_30">
+                            “Using this platform was a transformative experience. It connected me with the
+                            best tools to grow my startup, and the support was exceptional.”
+                        </p>
+                        <span class="number-font uppercase author-comment">Sanjay Singhaniya </span>
+                    </div>
+                    <!--  -->
+                    <div class="content-comment relative">
+                        <div class="number-font absolute stt-comment">#03</div>
+                        <p class="menu-font des-comment space_bot_30">
+                            “This service exceeded my expectations. The curated selection of solutions
+                            helped me save time and achieve my goals more effectively.”
+                        </p>
+                        <span class="number-font uppercase author-comment">Vivan Ahuja </span>
+                    </div>
+                    <!--  -->
+                    <div class="content-comment relative">
+                        <div class="number-font absolute stt-comment">#04</div>
+                        <p class="menu-font des-comment space_bot_30">
+                            “I highly recommend this platform to anyone looking for efficient and reliable
+                            project solutions. It’s truly a one-stop shop for success.”
+                        </p>
+                        <span class="number-font uppercase author-comment">Saumil Ehzwa </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
+{%endblock%}

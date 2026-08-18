@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+{%block main%}
+{%load static%}
+{%include 'messages.html'%}
+
+<main>
+<div class="banner margin_bottom_150">
+	<div class="container">
+		<h1 class="title-font title-banner banner-product-detail">Complaint</h1>
+		<ul class="breadcrumb des-font">
+			<li><a href=" {% static 'Home1.html' %} ">Home</a></li>
+			<li class="active">Complaint</li>
+		</ul>
+	</div>
+</div>
+
+<section class="w3l-form1 py-5">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card shadow-sm border"><br><br>
+					<div>
+						<h4 align="center">Complaint</h4>
+					</div>
+					<div class="card-body">
+						<form method="post" action="/complaint_submit">
+							{% csrf_token %}
+							<div class="form-group">
+										<label for="plant">Select Order</label>
+											{% if orderdetails %}
+										<select name="orders" id="plant" class="form-control">
+											{% for order in orderdetails %}
+								<option value="{{ order.id }}">Order ID: {{ order.id }} - User: {{ order.user.name }} - Status: {{ order.order_status }} - Total: {{order.amount}}</option>
+							{% endfor %}
+											{% else %}
+						<p>No Orders available for feedback.</p>
+					{% endif %}
+										</select>
+									</div>
+
+
+							<div class="form-group mb-3">
+								<label for="subject" class="form-label">Subject</label>
+								<input type="text" name="subject1" id="subject" class="form-control" placeholder="Enter Subject" required>
+							</div>
+
+							<div class="form-group mb-4">
+								<label for="description" class="form-label">Description</label>
+								<textarea name="description1" id="description" class="form-control" rows="5" placeholder="Describe your issue here..." required></textarea>
+							</div>
+
+							<div class="text-center">
+								<button type="submit" class="btn btn-success">Submit Complaint</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+	<br><br>
+</main>
+{%endblock%}

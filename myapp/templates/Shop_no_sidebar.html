@@ -1,0 +1,130 @@
+{%extends 'base.html'%}
+{%block main%}
+{%load static%}
+{%include 'messages.html'%}
+
+<style>
+	.img-product img {
+    width: 100%; /* Ensures images span the width of their container */
+    height: 200px; /* Fixed height for consistent dimensions */
+    object-fit: cover; /* Ensures images fill the space without distortion */
+    border-radius: 8px; /* Optional: Adds rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}
+
+.product {
+    margin-bottom: 30px; /* Consistent spacing between products */
+}
+
+.product .img-product {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #eee; /* Optional: Adds a light border around the image */
+}
+
+.product .img-product:hover img {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    transition: all 0.3s ease-in-out; /* Smooth hover transition */
+}
+
+</style>
+<main>
+<div class="banner margin_bottom_150">
+	<div class="container">
+		<h1 class="title-font title-banner">Shop</h1>
+		<ul class="breadcrumb des-font">
+			<li><a href=" {% static 'Home1.html' %} ">Home</a></li>
+			<li class="active">Shop</li>
+		</ul>
+	</div>
+</div>
+<!--  -->
+<div class="container shop-page margin_bottom_150">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content-shop full-shop">
+			<div class="row btn-function-shop">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin_bottom_50">
+					<span class="des-font showing hidden-xs">Showing 1–9 of 50 results</span>
+					<button class="active" id="btn-grid"><i class="ti-layout-grid3-alt"></i></button>
+					<button id="btn-list"><i class="ti-list"></i></button>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 margin_bottom_50 text-right select-view">
+					<button><i class="ti-eye"></i></button>
+					<select id="select-show">
+						<option>Sort by popularity</option>
+                        <option>Featured</option>
+                        <option>Best selling</option>
+                        <option>Alphabetically, A - Z</option>
+                        <option>Price, hight to low</option>
+                        <option>Price, low to hight</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				{% for i in productdetails%}
+				<div class="product col-lg-2 col-md-4 col-sm-6 col-xs-6 margin_bottom_50">
+					<div class="img-product relative">
+						<a href="#"><img src="{{i.image1.url}}"  class="product-image" alt=""></a>
+						<figure class="absolute uppercase label-new title-font text-center">new</figure>
+						<div class="product-icon text-center absolute">
+							<form method="post" action="https://landing.engotheme.com/cart/add" enctype="multipart/form-data" class="inline-block icon-addcart">
+  							  <input type="hidden" name="id" value="" />
+  							  <button type="submit" name="add" class="enj-add-to-cart-btn btn-default"><i class="ti-bag"></i></button>
+  							</form>
+  							<a href="#" class="icon-heart inline-block"><i class="ti-heart"></i></a>
+  							<a href="#" class="engoj_btn_quickview icon-quickview inline-block" title="quickview">
+      						  <i class="ti-more-alt"></i>
+      						</a>
+						</div>
+					</div>
+					<div class="product-info">
+					<div class="info-product text-center">
+
+						<h4 class="des-font capital title-product space_top_20"><a href="/shopdetail/{{ i.id }}">{{i.name}}</a></h4>
+
+						<p ><span class="price">₹{{i.price}}</span></p>
+						<p class="des-font des-product">{{i.desc}}</p>
+					</div>
+					<div class="btn-product-list">
+						<form method="post" action="https://landing.engotheme.com/cart/add" enctype="multipart/form-data" class="inline-block icon-addcart">
+  							  <input type="hidden" name="id" value="" />
+  							  <button type="submit" name="add" class="enj-add-to-cart-btn btn-default des-font uppercase">add to cart</button>
+  						</form>
+  							<a href="#" class="icon-heart inline-block"><i class="ti-heart"></i></a>
+  							<a href="#" class="engoj_btn_quickview icon-quickview inline-block" title="quickview">
+      						  <i class="ti-more-alt"></i>
+      						</a>
+					</div>
+					</div>
+				</div>
+				<!--  -->
+				{%endfor%}
+			</div>
+			<!--  -->
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="pagination">
+						<li><a href="#" class="des-font border"><i class="ti-arrow-left"></i></a></li>
+						<li><a href="#" class="des-font active">1</a></li>
+						<li><a href="#" class="des-font">2</a></li>
+						<li><a href="#" class="des-font">3</a></li>
+						<li><a href="#" class="des-font">...</a></li>
+						<li><a href="#" class="des-font border"><i class="ti-arrow-right"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--  -->
+<div class="newsletter-home3 space_bot_150 space_top_130 BG">
+	<h1 class="title-font capital title-newsletter text-center">Get Our Latest Update In Your Email</h1>
+	<p class="des-font des-newsletter space_bot_60 text-center">Subscribe now to get 15% off on any product</p>
+	<form class="form-group des-font flex" method="post" target="_blank">
+				<input type="email" name="EMAIL" class="form-control" placeholder="Your email address...">
+				<button type="submit" class="menu-font uppercase">subscribe</button>
+	</form>
+</div>
+<!--  -->
+</main>
+{%endblock%}
